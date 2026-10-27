@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<title>GerakGo – Travel Cost Calculator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <h1>Gerak<span class="brand-accent">Go</span></h1>
+  <p class="tagline"><span>PLAN.</span> <span>CALCULATE.</span> <span>GO.</span></p>
+  <p class="intro">Calculate the real cost of your trip before you go: fuel, tolls, parking, and compare it with bus or train travel.</p>
+</header>
+
+<main>
+  <section class="panel" aria-labelledby="t-trip">
+    <h2 id="t-trip">Trip</h2>
+    <div class="grid">
+      <label>From
+        <input id="from" type="text" placeholder="Perak">
+      </label>
+      <label>Destination
+        <input id="to" type="text" placeholder="Kuala Lumpur">
+      </label>
+      <label>One-way distance (km)
+        <input id="distance" type="number" min="0" step="1" value="200" inputmode="decimal">
+      </label>
+      <label>Number of passengers (including you)
+        <input id="people" type="number" min="1" step="1" value="1" inputmode="numeric">
+      </label>
+    </div>
+    <label class="check"><input id="round" type="checkbox" checked> Round trip</label>
+  </section>
+
+  <section class="panel" aria-labelledby="t-car">
+    <h2 id="t-car">Vehicle</h2>
+    <div class="grid">
+      <label>Vehicle type
+        <select id="vehicleType">
+          <option value="car">Car</option>
+          <option value="motorcycle">Motorcycle</option>
+        </select>
+      </label>
+      <label>Vehicle name or model
+        <input id="vehicle" type="text" list="vehicleList" placeholder="Perodua Myvi" autocomplete="off">
+        <datalist id="vehicleList"></datalist>
+        <small>Pick from the list to fill in tank size and fuel use, or type your own. Listed figures are estimates.</small>
+      </label>
+      <label>Fuel tank capacity (litres)
+        <input id="tank" type="number" min="0" step="0.1" value="36" inputmode="decimal">
+        <small>Check your owner's manual. Motorcycles are usually 4 to 15 litres.</small>
+      </label>
+      <label>Fuel price (RM/litre, BUDI95 included)
+        <input id="fuel" type="number" min="0" step="0.01" value="1.99" inputmode="decimal">
+        <small>RM1.99 is the BUDI95 price for RON95. If you don't use BUDI, enter the regular pump price. Check the latest price before using.</small>
+      </label>
+      <label>Fuel consumption (L/100 km)
+        <input id="cons" type="number" min="1" step="0.1" value="7" inputmode="decimal">
+        <small>Your average. Motorcycles are usually 2 to 4 L/100 km.</small>
+      </label>
+      <label>One-way toll cost (RM)
+        <input id="toll" type="number" min="0" step="0.1" value="45" inputmode="decimal">
+      </label>
+      <label>Parking for the trip (RM)
+        <input id="parking" type="number" min="0" step="0.5" value="20" inputmode="decimal">
+      </label>
+      <small id="freeNote"></small>
+      <label>Vehicle wear cost (RM/km)
+        <input id="wear" type="number" min="0" step="0.01" value="0.10" inputmode="decimal">
+        <small>Tyres, servicing, engine oil. Enter 0 to leave this out.</small>
+      </label>
+      </div>
+  </section>
+
+  <section class="panel" aria-labelledby="t-alt">
+    <h2 id="t-alt">Alternative transport</h2>
+    <div class="grid">
+      <label>Transport name
+        <input id="altName" type="text" value="ETS">
+      </label>
+      <label>One-way fare per person (RM)
+        <input id="altFare" type="number" min="0" step="0.5" value="75" inputmode="decimal">
+      </label>
+      <label>Additional cost per person (RM)
+        <input id="altExtra" type="number" min="0" step="0.5" value="10" inputmode="decimal">
+        <small>Ride to the station, food, and so on.</small>
+      </label>
+    </div>
+  </section>
+
+  <section class="sign" aria-live="polite" aria-label="Results">
+    <p class="route" id="route">Your trip</p>
+    <p class="big"><span id="perPerson">RM 0.00</span> <small>per person</small></p>
+    <dl>
+      <div><dt>Fuel</dt><dd id="rFuel"></dd></div>
+      <div><dt>Fuel needed</dt><dd id="rLitres"></dd></div>
+      <div><dt>Range per full tank</dt><dd id="rRange"></dd></div>
+      <div><dt>Tolls</dt><dd id="rToll"></dd></div>
+      <div><dt>Parking</dt><dd id="rPark"></dd></div>
+      <div><dt>Vehicle wear</dt><dd id="rWear"></dd></div>
+      <div class="total"><dt>Total</dt><dd id="rTotal"></dd></div>
+    </dl>
+    <p class="note" id="rangeNote"></p>
+  </section>
+
+  <section class="verdict" aria-live="polite">
+    <h2>Which option is cheaper?</h2>
+    <p id="verdictText"></p>
+    <div class="bars">
+      <div class="bar"><span id="carLabel">Vehicle</span><i id="barCar"></i><b id="valCar"></b></div>
+      <div class="bar"><span id="altLabel">Alternative</span><i id="barAlt"></i><b id="valAlt"></b></div>
+    </div>
+    <button id="copy" type="button">Copy to share on WhatsApp</button>
+    <p id="copied" class="copied" role="status"></p>
+  </section>
+</main>
+
+<footer>Estimates only. Actual costs depend on traffic, fuel prices, and driving habits.</footer>
+<script src="script.js"></script>
+</body>
+</html>
