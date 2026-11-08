@@ -57,6 +57,26 @@
         <datalist id="vehicleList"></datalist>
         <small>Pick from the list to fill in tank size and fuel use, or type your own. Listed figures are estimates.</small>
       </label>
+      <label>Vehicle size
+        <select id="vehicleSize">
+          <option value="" selected>Choose a vehicle size</option>
+          <option value="2.5">Motorcycle</option>
+          <option value="6">Small car</option>
+          <option value="7.5">Sedan</option>
+          <option value="9">SUV / MPV</option>
+          <option value="11">Pickup / 4x4</option>
+        </select>
+      </label>
+      <details>
+        <summary>Don't know? Calculate from your tank</summary>
+        <label>Litres filled last time
+          <input id="tankLitresFilled" type="number" min="0" step="any" inputmode="decimal">
+        </label>
+        <label>Km driven since the previous full tank
+          <input id="tankKmDriven" type="number" min="0" step="any" inputmode="decimal">
+        </label>
+        <button id="useTankConsumption" type="button">Use this</button>
+      </details>
       <label>Fuel tank capacity (litres)
         <input id="tank" type="number" min="0" step="0.1" value="36" inputmode="decimal">
         <small>Check your owner's manual. Motorcycles are usually 4 to 15 litres.</small>
@@ -67,7 +87,7 @@
       </label>
       <label>Fuel consumption (L/100 km)
         <input id="cons" type="number" min="1" step="0.1" value="7" inputmode="decimal">
-        <small>Your average. Motorcycles are usually 2 to 4 L/100 km.</small>
+        <small>Your average. Motorcycles are usually 2 to 4 L/100 km. Estimate only. Edit if you know your real figure.</small>
       </label>
       <label>One-way toll cost (RM)
         <input id="toll" type="number" min="0" step="0.1" value="45" inputmode="decimal">

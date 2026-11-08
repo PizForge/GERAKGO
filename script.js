@@ -137,7 +137,7 @@ $("vehicle").addEventListener("input", () => {
     $("tank").value = VEHICLES[match].tank;
     $("cons").value = VEHICLES[match].cons;
     $("vehicleType").value = VEHICLES[match].type;
-    calculate();
+    $("cons").dispatchEvent(new Event("input", { bubbles: true }));
   }
 });
 
@@ -163,6 +163,24 @@ vehicleInput.addEventListener("blur", () => {
 
 document.querySelectorAll("input").forEach((el) => el.addEventListener("input", calculate));
 $("vehicleType").addEventListener("change", calculate);
+$("vehicleSize").addEventListener("change", () => {
+  if ($("vehicleSize").value) {
+    $("cons").value = $("vehicleSize").value;
+    $("cons").dispatchEvent(new Event("input", { bubbles: true }));
+  }
+});
+
+$("useTankConsumption").addEventListener("click", () => {
+  const litres = $("tankLitresFilled").valueAsNumber;
+  const km = $("tankKmDriven").valueAsNumber;
+  if (!Number.isFinite(litres) || !Number.isFinite(km) || litres <= 0 || km <= 0) {
+    alert("Enter litres and kilometres greater than 0.");
+    return;
+  }
+
+  $("cons").value = (litres / km * 100).toFixed(1);
+  $("cons").dispatchEvent(new Event("input", { bubbles: true }));
+});
 
 $("autoDistance").addEventListener("click", async () => {
   const button = $("autoDistance");
