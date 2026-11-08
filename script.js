@@ -164,6 +164,52 @@ vehicleInput.addEventListener("blur", () => {
 document.querySelectorAll("input").forEach((el) => el.addEventListener("input", calculate));
 $("vehicleType").addEventListener("change", calculate);
 
+$("autoDistance").addEventListener("click", async () => {
+  const button = $("autoDistance");
+  const from = $("from").value.trim();
+  const to = $("to").value.trim();
+  button.disabled = true;
+  button.textContent = "Calculating...";
+
+  try {
+    const geocode = async (place) => {
+      const url = new URL("https://nominatim.openstreetmap.org/search");
+      url.search = new URLSearchParams({
+        format: "json",
+        limit: "1",
+        countrycodes: "my",
+        q: place,
+      }).toString();
+      const response = await fetch(url);
+      if (!response.ok) throw new Error("Geocoding request failed");
+      const results = await response.json();
+      if (!results.length) throw new Error("Place not found");
+      return results[0];
+    };
+
+    if (!from || !to) throw new Error("Enter both places");
+    const origin = await geocode(from);
+    await new Promise((resolve) => setTimeout(resolve, 1100));
+    const destination = await geocode(to);
+
+    const routeUrl = `https://router.project-osrm.org/route/v1/driving/${origin.lon},${origin.lat};${destination.lon},${destination.lat}?overview=false`;
+    const routeResponse = await fetch(routeUrl);
+    if (!routeResponse.ok) throw new Error("Routing request failed");
+    const routeData = await routeResponse.json();
+    if (routeData.code !== "Ok" || !routeData.routes.length) {
+      throw new Error("Route not found");
+    }
+
+    $("distance").value = Math.round(routeData.routes[0].distance / 1000);
+    $("distance").dispatchEvent(new Event("input", { bubbles: true }));
+  } catch {
+    alert("Could not calculate the distance. Try another place name or enter km manually.");
+  } finally {
+    button.disabled = false;
+    button.textContent = "Auto-fill distance";
+  }
+});
+
 $("copy").addEventListener("click", async () => {
   try {
     await navigator.clipboard.writeText(shareText);

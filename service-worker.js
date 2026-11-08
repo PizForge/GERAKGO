@@ -1,5 +1,5 @@
 // Naikkan nombor versi ini setiap kali awak kemas kini fail, supaya cache lama diganti.
-const CACHE_NAME = "gerakgo-v2";
+const CACHE_NAME = "gerakgo-v3";
 
 const FILES_TO_CACHE = [
   "./",
