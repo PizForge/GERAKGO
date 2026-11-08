@@ -41,6 +41,7 @@ Open `index.html` in a browser, or use the Live Server extension in VS Code.
 
 ## Project structure
 
+```
 gerakgo/
 ├── index.html
 ├── style.css
@@ -50,6 +51,8 @@ gerakgo/
 │   └── Gerakgo.png
 ├── LICENSE
 └── README.md
+
+```
 
 ## Notes
 
