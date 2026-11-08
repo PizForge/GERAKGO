@@ -5,19 +5,41 @@ const fmtL = (n) => n.toLocaleString("en-MY", { minimumFractionDigits: 1, maximu
 const peopleLabel = (n) => `${n} ${n === 1 ? "person" : "people"}`;
 
 let shareText = "";
+let savedTollValue;
+let savedParkingValue;
 
 function calculate() {
   const trips = $("round").checked ? 2 : 1;
   const people = Math.max(1, Math.round(num("people")));
   const isMotorcycle = $("vehicleType").value === "motorcycle";
+  const tollInput = $("toll");
+  const parkingInput = $("parking");
+  if (isMotorcycle) {
+    if (!tollInput.disabled) savedTollValue = tollInput.value;
+    if (!parkingInput.disabled) savedParkingValue = parkingInput.value;
+    tollInput.value = "0";
+    parkingInput.value = "0";
+    tollInput.disabled = true;
+    parkingInput.disabled = true;
+    $("freeNote").textContent = "Motorcycles: no toll and no parking charge";
+  } else {
+    if (tollInput.disabled) {
+      tollInput.disabled = false;
+      tollInput.value = savedTollValue === undefined ? "0" : savedTollValue;
+      savedTollValue = undefined;
+    }
+    if (parkingInput.disabled) {
+      parkingInput.disabled = false;
+      parkingInput.value = savedParkingValue === undefined ? "0" : savedParkingValue;
+      savedParkingValue = undefined;
+    }
+    $("freeNote").textContent = "";
+  }
   const km = num("distance") * trips;
 
   const fuel = (km * num("cons") / 100) * num("fuel");
   const toll = isMotorcycle ? 0 : num("toll") * trips;
   const parking = isMotorcycle ? 0 : num("parking");
-  $("toll").disabled = isMotorcycle;
-  $("parking").disabled = isMotorcycle;
-  $("freeNote").textContent = isMotorcycle ? "Motorcycles: no toll and no parking charge." : "";
   const wear = km * num("wear");
   const total = fuel + toll + parking + wear;
   const perPerson = total / people;
