@@ -20,7 +20,7 @@ GerakGo is a travel cost calculator for Malaysian road trips. Enter your route, 
 - Compares driving with an alternative such as ETS or bus, and shows which is cheaper
 - One-click copy of the trip summary to share on WhatsApp
 - Responsive layout with a dark navy and lime theme
-
+- Installable as an app (PWA) with offline support
 ## How to use
 
 1. Enter where you are going and the one-way distance in km.
