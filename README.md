@@ -7,7 +7,6 @@ GerakGo is a travel cost calculator for Malaysian road trips. Enter your route, 
 **Live demo:** 
 https://pizforge.github.io/GERAKGO/
 
-screenshot
 
 ## Features
 
