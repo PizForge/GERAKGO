@@ -4,8 +4,7 @@
 
 GerakGo is a travel cost calculator for Malaysian road trips. Enter your route, vehicle and costs, and it shows what the trip really costs per person, then compares it with bus or train travel.
 
-**Live demo:** 
-https://pizforge.github.io/GERAKGO/
+[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen)](https://pizforge.github.io/GERAKGO/)
 
 ![GerakGo screenshot](screenshot/Gerakgo.png)
 
@@ -42,14 +41,15 @@ Open `index.html` in a browser, or use the Live Server extension in VS Code.
 
 ## Project structure
 
-```
 gerakgo/
 ├── index.html
 ├── style.css
 ├── script.js
 ├── favicon.svg
+├── screenshot/
+│   └── Gerakgo.png
+├── LICENSE
 └── README.md
-```
 
 ## Notes
 
